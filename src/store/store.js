@@ -1,7 +1,10 @@
 import { create } from "zustand";
 
+// initial state
+const initialUsers = JSON.parse(localStorage.getItem("user")) || [];
+
 const useUserStore = create((set) => ({
-  user: [],
+  user: initialUsers,
   addUser: (payload) =>
     set((state) => {
       const newUser = [...state.user, payload];
