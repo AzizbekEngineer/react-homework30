@@ -1,6 +1,5 @@
 import { create } from "zustand";
 
-// initial state
 const initialUsers = JSON.parse(localStorage.getItem("user")) || [];
 
 const useUserStore = create((set) => ({
@@ -16,6 +15,14 @@ const useUserStore = create((set) => ({
       const newUser = state.user.filter((el) => el.id !== id);
       localStorage.setItem("user", JSON.stringify(newUser));
       return { user: newUser };
+    }),
+  editUser: (id, payload) =>
+    set((state) => {
+      const updatedUsers = state.user.map((user) =>
+        user.id === id ? { ...user, ...payload } : user
+      );
+      localStorage.setItem("user", JSON.stringify(updatedUsers));
+      return { user: updatedUsers };
     }),
 }));
 
